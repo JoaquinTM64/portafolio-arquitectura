@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Académico | Joaquín Benjamín Tovar Montoya</title>
+    <!-- Fuentes recomendadas en Editorial Engineering -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@300;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <h1 class="brand">Joaquín Benjamín Tovar Montoya</h1>
+            <nav class="nav">
+                <a href="#inicio" class="active">Inicio</a>
+                <a href="#semanas">Unidades</a>
+                <a href="login.html">Iniciar Sesion</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section id="inicio" class="hero">
+            <div class="container hero-container">
+                <span class="hero-pill">PORTAFOLIO ACADÉMICO</span>
+                <h2 class="display-title">Bienvenido a mi Portafolio</h2>
+                <p class="hero-desc">"Una exploración técnica y visual a través del curso de <strong>Arquitectura de
+                        Software</strong>"
+                <div class="hero-actions">
+                    <button class="btn btn-primary"
+                        onclick="document.getElementById('semanas').scrollIntoView({behavior: 'smooth'})">Explorar
+                        Semanas</button>
+                    <span class="hero-label">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                        2026-I Ciclo
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section id="semanas" class="section-semanas">
+            <div class="container">
+                <div class="section-header">
+                    <div class="header-text">
+                        <span class="section-label">PROGRESO DEL SEMESTRE</span>
+                        <h3 class="section-title">Bitácora de Ingeniería</h3>
+                        <p class="section-desc">Registro detallado de actividades, desde los fundamentos de patrones de
+                            diseño hasta la implementación de microservicios y despliegue en la nube.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-container" id="accordionSemanas">
+                    <!-- Las unidades y tarjetas se generarán mediante JavaScript con acordeón -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloque Visión de Diseño opcional que complementa la maqueta (image reference) -->
+        <section class="section-vision">
+            <div class="container vision-container">
+                <div class="vision-image">
+                    <!-- Referencia al archivo image/diseño en workspace -->
+                </div>
+                <div class="vision-content">
+                    <span class="section-label">VISIÓN DE DISEÑO</span>
+                    <h3 class="section-title">Arquitectura como base de la Escalabilidad</h3>
+                    <p class="vision-desc">Mi enfoque en el desarrollo de software prioriza la mantenibilidad y el
+                        rendimiento. A través de este portafolio, busco demostrar no solo la resolución de problemas
+                        técnicos, sino la aplicación de principios estructurales que permiten que el software crezca
+                        orgánicamente.</p>
+
+                    <div class="vision-cards">
+                        <div class="v-card">
+                            <div class="v-icon">
+                                <!-- Minimal Icon structure -->
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="14" width="7" height="7"></rect>
+                                    <rect x="3" y="14" width="7" height="7"></rect>
+                                </svg>
+                            </div>
+                            <h4>Estructural</h4>
+                            <p>Diseño modular y desacoplado.</p>
+                        </div>
+                        <div class="v-card">
+                            <div class="v-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <h4>Eficiencia</h4>
+                            <p>Optimización de recursos y latencia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 JOAQUÍN BENJAMÍN TOVAR MONTOYA | ARCHITECTURE OF SOFTWARE</p>
+        </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

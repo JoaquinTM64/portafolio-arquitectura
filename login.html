@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Architect Canvas - Iniciar Sesión</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#2a3439",
+                        "surface-container": "#e8eff3",
+                        "on-surface-variant": "#566166",
+                        "surface": "#f7f9fb",
+                        "surface-container-highest": "#d9e4ea",
+                        "secondary-fixed": "#b3ecf3",
+                        "on-primary-container": "#00558c",
+                        "on-background": "#2a3439",
+                        "outline-variant": "#a9b4b9",
+                        "secondary": "#2e676d",
+                        "on-error-container": "#752121",
+                        "error-container": "#fe8983",
+                        "on-secondary": "#e9fdff",
+                        "surface-container-high": "#e1e9ee",
+                        "secondary-fixed-dim": "#a5dee5",
+                        "error": "#9f403d",
+                        "on-secondary-fixed": "#00474d",
+                        "inverse-on-surface": "#9a9d9f",
+                        "primary": "#0062a1",
+                        "surface-variant": "#d9e4ea",
+                        "tertiary": "#4e6365",
+                        "surface-tint": "#0062a1",
+                        "outline": "#717c82",
+                        "primary-dim": "#00558d",
+                        "inverse-primary": "#5eb0ff",
+                        "tertiary-container": "#def5f8",
+                        "primary-fixed": "#d0e4ff",
+                        "error-dim": "#4e0309",
+                        "inverse-surface": "#0b0f10",
+                        "on-primary": "#f5f8ff",
+                        "primary-container": "#d0e4ff",
+                        "tertiary-fixed-dim": "#d0e7ea",
+                        "background": "#f7f9fb",
+                        "secondary-dim": "#205b61",
+                        "on-tertiary-fixed-variant": "#53686b",
+                        "surface-container-low": "#f0f4f7",
+                        "on-tertiary-container": "#495e60",
+                        "on-primary-fixed": "#00426f",
+                        "surface-dim": "#cfdce3",
+                        "tertiary-fixed": "#def5f8",
+                        "on-secondary-container": "#1e5a60",
+                        "on-primary-fixed-variant": "#005f9c",
+                        "surface-bright": "#f7f9fb",
+                        "tertiary-dim": "#425759",
+                        "on-secondary-fixed-variant": "#2a646a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#374b4e",
+                        "on-tertiary": "#e9fdff",
+                        "primary-fixed-dim": "#b7d7ff",
+                        "on-error": "#fff7f6",
+                        "secondary-container": "#b3ecf3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .node-pattern {
+            background-image: radial-gradient(circle, #0062a1 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Background Architectural Textures -->
+<div class="absolute inset-0 z-0 pointer-events-none">
+<!-- Abstract Node Pattern -->
+<div class="absolute inset-0 node-pattern opacity-[0.05]"></div>
+<!-- Modern Gradient Mesh -->
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary-container/20 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary-container/30 blur-[120px]"></div>
+<!-- Subtle Vector Lines -->
+<svg class="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+<line stroke="#0062a1" stroke-width="0.5" x1="10%" x2="10%" y1="0" y2="100%"></line>
+<line stroke="#0062a1" stroke-width="0.5" x1="90%" x2="90%" y1="0" y2="100%"></line>
+<line stroke="#0062a1" stroke-width="0.5" x1="0" x2="100%" y1="20%" y2="20%"></line>
+</svg>
+</div>
+<!-- Login Container -->
+<main class="relative z-10 w-full max-w-md px-6 animate-fade-in">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_32px_48px_-4px_rgba(42,52,57,0.06)] overflow-hidden">
+<!-- Branding Header -->
+<div class="p-8 pb-4 text-center">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-container mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="architecture">architecture</span>
+</div>
+<h1 class="font-headline text-3xl font-extrabold tracking-tighter text-on-surface mb-1">Iniciar Sesión</h1>
+<p class="text-on-surface-variant font-medium text-sm">Portafolio - Arquitectura de Software</p>
+</div>
+<!-- Login Form -->
+<form id="loginForm" class="p-8 pt-4 space-y-6">
+<!-- Username Field -->
+<div class="space-y-2">
+<label class="block text-sm font-semibold tracking-tight text-on-surface-variant ml-1" for="username">Usuario</label>
+<div class="relative flex items-center">
+<div class="absolute left-4 text-outline pointer-events-none">
+<span class="material-symbols-outlined text-[20px]" data-icon="person">person</span>
+</div>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3.5 pl-12 pr-4 text-on-surface placeholder:text-outline/60 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all duration-300 outline-none" id="username" name="username" placeholder="nombre@ejemplo.com" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center px-1">
+<label class="block text-sm font-semibold tracking-tight text-on-surface-variant" for="password">Contraseña</label>
+<a class="text-xs font-medium text-primary hover:underline transition-all" href="#">¿Olvidaste tu clave?</a>
+</div>
+<div class="relative flex items-center">
+<div class="absolute left-4 text-outline pointer-events-none">
+<span class="material-symbols-outlined text-[20px]" data-icon="lock">lock</span>
+</div>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3.5 pl-12 pr-12 text-on-surface placeholder:text-outline/60 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all duration-300 outline-none" id="password" name="password" placeholder="••••••••" type="password"/>
+<button type="button" id="togglePassword" class="absolute right-4 text-outline hover:text-primary transition-colors cursor-pointer flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" id="eyeIcon" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember Me -->
+<div class="flex items-center px-1">
+<input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/40" id="remember" type="checkbox"/>
+<label class="ml-2 text-sm font-medium text-on-surface-variant cursor-pointer select-none" for="remember">Recordar mi sesión</label>
+</div>
+<!-- Action Button -->
+<button class="w-full py-4 px-6 rounded-full bg-gradient-to-br from-primary to-secondary text-on-primary font-bold tracking-tight text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:brightness-90 active:scale-95 transition-all duration-300" type="submit">
+                    Ingresar
+                </button>
+</form>
+<!-- Card Footer Area (Integrated) -->
+<div class="px-8 py-6 bg-surface-container-low/50 border-t border-surface-container-high/30">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 text-xs font-medium text-on-surface-variant justify-center">
+<a class="hover:text-primary transition-colors" href="#">Privacidad</a>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<a class="hover:text-primary transition-colors" href="#">Términos</a>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<a class="hover:text-primary transition-colors" href="#">Contacto</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Back to Portfolio Link -->
+<div class="mt-8 flex justify-center">
+    <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-on-surface-variant hover:text-primary transition-all duration-300 group">
+        <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform duration-300" data-icon="arrow_back">arrow_back</span>
+        Volver al Portafolio
+    </a>
+</div>
+
+<!-- External Footer Copyright -->
+<footer class="mt-4 text-center">
+<p class="font-inter text-xs tracking-wide text-on-surface-variant/80 antialiased">
+                © 2026 Joaquín Benjamín Tovar Montoya
+            </p>
+</footer>
+</main>
+<!-- Background Decorative Image (Subtle Glass Effect) -->
+<!-- Supabase JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Inicializar Supabase
+    const supabaseUrl = "https://iacjmzaihvzjotehsdjd.supabase.co";
+    const supabaseKey = "sb_publishable_CJnhBJENcZ5EyjTasNQriA_Ka4FHCtB";
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    // Capturar formulario e inputs
+    const loginForm = document.getElementById("loginForm");
+    const emailInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    // Lógica para mostrar/ocultar contraseña
+    togglePasswordBtn.addEventListener('click', () => {
+        const isPassword = passwordInput.getAttribute('type') === 'password';
+        passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+        eyeIcon.textContent = isPassword ? 'visibility_off' : 'visibility';
+    });
+
+    // Manejar el submit del formulario
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Evitar recarga
+        
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        console.log("Intentando iniciar sesión con Supabase...");
+
+        // Implementar login con Supabase
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        console.log("Resultado de login:", { data, error });
+
+        if (error) {
+            alert("Acceso denegado");
+        } else {
+            alert("Registro válido");
+            // Redirigir al admin panel si el login es exitoso
+            window.location.href = "admin.html";
+        }
+    });
+});
+</script>
+</body></html>

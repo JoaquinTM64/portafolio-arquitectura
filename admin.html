@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ArchCanvas Admin - Portfolio Management</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#005f9c",
+                        "on-surface-variant": "#566166",
+                        "secondary-container": "#b3ecf3",
+                        "on-tertiary-container": "#495e60",
+                        "on-secondary": "#e9fdff",
+                        "on-tertiary-fixed": "#374b4e",
+                        "primary-fixed": "#d0e4ff",
+                        "tertiary-container": "#def5f8",
+                        "on-background": "#2a3439",
+                        "surface": "#f7f9fb",
+                        "primary-fixed-dim": "#b7d7ff",
+                        "surface-container-high": "#e1e9ee",
+                        "on-primary-container": "#00558c",
+                        "inverse-on-surface": "#9a9d9f",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#def5f8",
+                        "secondary-dim": "#205b61",
+                        "secondary": "#2e676d",
+                        "outline": "#717c82",
+                        "on-error-container": "#752121",
+                        "secondary-fixed": "#b3ecf3",
+                        "inverse-surface": "#0b0f10",
+                        "error-dim": "#4e0309",
+                        "on-tertiary": "#e9fdff",
+                        "primary-dim": "#00558d",
+                        "surface-bright": "#f7f9fb",
+                        "on-error": "#fff7f6",
+                        "on-tertiary-fixed-variant": "#53686b",
+                        "surface-container-low": "#f0f4f7",
+                        "on-primary-fixed": "#00426f",
+                        "on-secondary-container": "#1e5a60",
+                        "surface-container-highest": "#d9e4ea",
+                        "on-secondary-fixed-variant": "#2a646a",
+                        "tertiary-fixed-dim": "#d0e7ea",
+                        "primary-container": "#d0e4ff",
+                        "tertiary": "#4e6365",
+                        "tertiary-dim": "#425759",
+                        "on-surface": "#2a3439",
+                        "primary": "#0062a1",
+                        "error-container": "#fe8983",
+                        "error": "#9f403d",
+                        "inverse-primary": "#5eb0ff",
+                        "surface-variant": "#d9e4ea",
+                        "outline-variant": "#a9b4b9",
+                        "secondary-fixed-dim": "#a5dee5",
+                        "surface-tint": "#0062a1",
+                        "surface-container": "#e8eff3",
+                        "surface-dim": "#cfdce3",
+                        "on-secondary-fixed": "#00474d",
+                        "on-primary": "#f5f8ff",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .node-line {
+            position: absolute;
+            background-color: #a9b4b9;
+            opacity: 0.2;
+        }
+    </style>
+</head>
+
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container">
+    <!-- TopNavBar -->
+    <header
+        class="fixed top-0 w-full z-50 bg-slate-50/70 backdrop-blur-xl shadow-sm flex justify-between items-center h-16 px-8 w-full">
+        <div class="flex items-center gap-4">
+            <span
+                class="text-xl font-bold bg-gradient-to-br from-blue-700 to-teal-700 bg-clip-text text-transparent font-headline tracking-tight">
+                Panel Administracion</span>
+        </div>
+        <nav class="hidden md:flex items-center gap-8 font-manrope tracking-tight font-semibold">
+            <a class="text-blue-700 border-b-2 border-blue-700 pb-1" href="#">Dashboard</a>
+            <a class="text-slate-500 hover:text-blue-600" href="#">Analytics</a>
+            <a class="text-slate-500 hover:text-blue-600" href="#">Repository</a>
+            <a class="text-slate-500 hover:text-blue-600" href="#">Settings</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+                <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+            </button>
+            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+                <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+            </button>
+            <div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden">
+                <img alt="Administrator Profile"
+                    data-alt="close-up portrait of a professional male administrator in a clean office setting, soft daylighting"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm1IjC5bMJWnOhPzbV_vTg8uUsJ5w_MThMho70O8L0qYUHB4vOWp1ZeasOsfLUlAitPmFhAbCJbb-EBHmeNhEZLMPH2QPcDq_9rZ8e6KrIFukdeqmqgwSBUU6-TNesAYvmIKNBKraWOsEswFNuhxHcPm-UH-6ayxP2yyKvelkxBxe6Cq29Sj6l7fvcf0N8LXDC8R_gwhgrsL2xpceM7jQ-Isgi8jlFpbyadjmN5sCNA94xTbZk1bQtrjFlw4roPjA3TOXjO5mPylSG" />
+            </div>
+        </div>
+    </header>
+    <!-- SideNavBar -->
+    <aside class="h-screen w-64 fixed left-0 top-0 pt-16 z-40 bg-slate-50 flex flex-col gap-2 py-6 pr-4">
+        <div class="px-6 mb-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-800">
+                    <span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                </div>
+                <div>
+                    <h3 class="font-headline font-bold text-sm text-on-surface">Faculty Portal</h3>
+                    <p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Software Architecture</p>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 space-y-1">
+            <a class="bg-blue-50 text-blue-700 rounded-r-full font-bold px-4 py-3 flex items-center gap-3 hover:translate-x-1 transition-transform scale-95 active:scale-100 font-inter text-sm font-medium"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="account_tree">account_tree</span> Academic Units
+            </a>
+        </nav>
+        <div class="px-4 mt-auto">
+            <a id="btnLogout" class="text-slate-600 px-4 py-6 flex items-center gap-3 font-inter text-sm font-medium hover:text-error cursor-pointer transition-colors" title="Cerrar sesión">
+                <span class="material-symbols-outlined" data-icon="logout">logout</span> Logout
+            </a>
+        </div>
+    </aside>
+    <!-- Main Content Area -->
+    <main class="ml-64 pt-16 min-h-screen">
+        <div class="p-8 max-w-7xl mx-auto space-y-12">
+            <!-- Hero Header -->
+            <section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div class="space-y-2">
+                    <h1 class="text-5xl font-headline font-extrabold text-on-surface tracking-tighter">Arquitectura de
+                        Software</h1>
+                    <p class="text-on-surface-variant max-w-md text-lg">System Administration and Portfolio Repository
+                        Hub.</p>
+                </div>
+                <div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4">
+                    <div
+                        class="h-12 w-12 rounded-lg bg-primary-container flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined" data-icon="data_exploration">data_exploration</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Active Units</p>
+                        <p class="text-2xl font-headline font-bold text-on-surface">12 <span
+                                class="text-sm font-normal text-on-surface-variant">/ 15</span></p>
+                    </div>
+                </div>
+            </section>
+            <!-- Admin Forms Bento Grid -->
+            <section class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Gestión de Unidades -->
+                <div
+                    class="md:col-span-4 bg-surface-container-lowest p-6 rounded-xl border-none shadow-[0_32px_48px_-4px_rgba(42,52,57,0.04)]">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="material-symbols-outlined text-secondary" data-icon="category">category</span>
+                        <h2 class="font-headline font-bold text-xl">Gestión de Unidades</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-on-surface-variant uppercase ml-1">Número de la
+                                Unidad</label>
+                            <input id="nombreUnidad"
+                                class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-white transition-all"
+                                placeholder="Ej: 1" type="number" min="1" />
+                        </div>
+                        <button type="button" id="btnCrearUnidad"
+                            class="w-full bg-surface-container-high text-on-surface font-bold py-3 rounded-full hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+                            Crear Unidad
+                        </button>
+                    </div>
+                </div>
+                <!-- Gestión de Semanas -->
+                <div
+                    class="md:col-span-4 bg-surface-container-lowest p-6 rounded-xl border-none shadow-[0_32px_48px_-4px_rgba(42,52,57,0.04)]">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="material-symbols-outlined text-secondary"
+                            data-icon="event_repeat">event_repeat</span>
+                        <h2 class="font-headline font-bold text-xl">Gestión de Semanas</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-on-surface-variant uppercase ml-1">Seleccionar
+                                Unidad</label>
+                            <select id="week-unit-select"
+                                class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-white transition-all">
+                                <option>Cargando unidades...</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-on-surface-variant uppercase ml-1">Nombre de la
+                                Semana</label>
+                            <input id="week-title-input"
+                                class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-white transition-all"
+                                placeholder="Semana 04: Microservicios" type="text" />
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-on-surface-variant uppercase ml-1">Descripción</label>
+                            <input id="week-desc-input-create"
+                                class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-white transition-all"
+                                placeholder="Descripción del trabajo..." type="text" />
+                        </div>
+
+                        <button id="btn-create-week"
+                            class="w-full bg-surface-container-high text-on-surface font-bold py-3 rounded-full hover:bg-primary hover:text-white transition-all">
+                            Agregar Semana
+                        </button>
+                    </div>
+                </div>
+                <!-- Subida de Trabajos -->
+                <div
+                    class="md:col-span-4 bg-surface-container-lowest p-6 rounded-xl border-none shadow-[0_32px_48px_-4px_rgba(42,52,57,0.04)]">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="material-symbols-outlined text-secondary"
+                            data-icon="cloud_upload">cloud_upload</span>
+                        <h2 class="font-headline font-bold text-xl">Subida de Trabajos</h2>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="grid grid-cols-2 gap-3">
+                            <select id="work-unit-select"
+                                class="w-full bg-surface-container-low border-none rounded-lg p-3 text-xs focus:ring-2 focus:ring-primary/40 focus:bg-white">
+                                <option>Cargando unidades...</option>
+                            </select>
+                            <select id="work-week-select"
+                                class="w-full bg-surface-container-low border-none rounded-lg p-3 text-xs focus:ring-2 focus:ring-primary/40 focus:bg-white">
+                                <option>Seleccione unidad primero</option>
+                            </select>
+                        </div>
+                        <input id="work-title-input"
+                            class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-white"
+                            placeholder="Título del Trabajo" type="text" />
+                        <textarea id="work-desc-input"
+                            class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-white h-20 resize-none"
+                            placeholder="Descripción breve..."></textarea>
+                        <div class="relative group">
+                            <input id="work-file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" type="file" />
+                            <div
+                                class="w-full bg-surface-container-low border-2 border-dashed border-outline-variant/30 rounded-lg p-4 text-center group-hover:bg-primary-container/20 transition-all">
+                                <span class="material-symbols-outlined text-outline-variant mb-1"
+                                    data-icon="upload_file">upload_file</span>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase">Subir PDF o Word</p>
+                            </div>
+                        </div>
+                        <button id="btn-upload-work"
+                            class="w-full bg-gradient-to-br from-primary to-secondary text-on-primary font-bold py-3 rounded-full shadow-sm hover:shadow-lg transition-all">
+                            Subir Trabajo
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <!-- Hierarchical Visualization -->
+            <section class="space-y-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="font-headline font-bold text-3xl text-on-surface">Estructura del Portafolio</h2>
+                        <p class="text-on-surface-variant">Visualización jerárquica de recursos académicos.</p>
+                    </div>
+                    <button
+                        class="flex items-center gap-2 text-primary font-bold text-sm bg-primary-container px-4 py-2 rounded-full">
+                        <span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span> Actualizar
+                        Vista
+                    </button>
+                </div>
+                <div class="bg-surface-container-low/50 rounded-2xl p-8 relative overflow-hidden">
+                    <!-- Decorational background nodes -->
+                    <div class="absolute top-10 left-10 w-4 h-4 bg-primary/10 rounded-full"></div>
+                    <div class="absolute bottom-10 right-10 w-6 h-6 bg-secondary/10 rounded-full"></div>
+                    <!-- Tree Visualization -->
+                    <div id="tree-container" class="space-y-8 relative z-10">
+                        <!-- Unit Node -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-primary flex items-center gap-4 w-fit min-w-[280px]">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined"
+                                            data-icon="folder_open">folder_open</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-[10px] font-bold text-primary uppercase">Unidad 1</p>
+                                        <p class="font-headline font-bold text-on-surface">Arquitectura de Software Base
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-16 space-y-6 border-l-2 border-outline-variant/20 pl-8">
+                                <!-- Week Node -->
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-4 relative">
+                                        <div class="absolute -left-[33px] top-1/2 w-8 h-[2px] bg-outline-variant/20">
+                                        </div>
+                                        <div
+                                            class="bg-white/80 backdrop-blur p-3 rounded-lg shadow-sm border border-outline-variant/10 flex items-center gap-3 w-fit min-w-[240px]">
+                                            <div
+                                                class="w-8 h-8 rounded bg-secondary-container flex items-center justify-center text-secondary">
+                                                <span class="material-symbols-outlined" data-icon="calendar_today"
+                                                    style="font-size: 18px">calendar_today</span>
+                                            </div>
+                                            <div>
+                                                <p class="text-[9px] font-bold text-secondary uppercase">Semana 1</p>
+                                                <p class="text-sm font-bold text-on-surface">Introducción y Contexto</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Works -->
+                                    <div class="ml-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        <div
+                                            class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/10 flex items-center justify-between group hover:border-primary/30 transition-all">
+                                            <div class="flex items-center gap-3 overflow-hidden">
+                                                <span class="material-symbols-outlined text-error"
+                                                    data-icon="picture_as_pdf">picture_as_pdf</span>
+                                                <div class="truncate">
+                                                    <p class="text-xs font-bold text-on-surface truncate">
+                                                        Mapa_Conceptual_V1.pdf</p>
+                                                    <p class="text-[9px] text-on-surface-variant">Subido: 12 Oct</p>
+                                                </div>
+                                            </div>
+                                            <button
+                                                class="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-surface-container-low rounded">
+                                                <span class="material-symbols-outlined text-sm"
+                                                    data-icon="more_vert">more_vert</span>
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/10 flex items-center justify-between group hover:border-primary/30 transition-all">
+                                            <div class="flex items-center gap-3 overflow-hidden">
+                                                <span class="material-symbols-outlined text-blue-500"
+                                                    data-icon="description">description</span>
+                                                <div class="truncate">
+                                                    <p class="text-xs font-bold text-on-surface truncate">
+                                                        Analisis_Requerimientos.docx</p>
+                                                    <p class="text-[9px] text-on-surface-variant">Subido: 14 Oct</p>
+                                                </div>
+                                            </div>
+                                            <button
+                                                class="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-surface-container-low rounded">
+                                                <span class="material-symbols-outlined text-sm"
+                                                    data-icon="more_vert">more_vert</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Another Week Node -->
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-4 relative">
+                                        <div class="absolute -left-[33px] top-1/2 w-8 h-[2px] bg-outline-variant/20">
+                                        </div>
+                                        <div
+                                            class="bg-white/80 backdrop-blur p-3 rounded-lg shadow-sm border border-outline-variant/10 flex items-center gap-3 w-fit min-w-[240px]">
+                                            <div
+                                                class="w-8 h-8 rounded bg-secondary-container flex items-center justify-center text-secondary">
+                                                <span class="material-symbols-outlined" data-icon="calendar_today"
+                                                    style="font-size: 18px">calendar_today</span>
+                                            </div>
+                                            <div>
+                                                <p class="text-[9px] font-bold text-secondary uppercase">Semana 2</p>
+                                                <p class="text-sm font-bold text-on-surface">Arquitectura Monolítica</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Unit Node 2 -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-secondary flex items-center gap-4 w-fit min-w-[280px]">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-secondary">
+                                        <span class="material-symbols-outlined"
+                                            data-icon="folder_open">folder_open</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-[10px] font-bold text-secondary uppercase">Unidad 2</p>
+                                        <p class="font-headline font-bold text-on-surface">Patrones de Arquitectura</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- Project Decorative Elements (As specified in DS) -->
+    <div class="fixed top-0 right-0 w-1/3 h-screen pointer-events-none -z-10 opacity-5">
+        <svg viewbox="0 0 400 800" xmlns="http://www.w3.org/2000/svg">
+            <circle class="text-primary" cx="200" cy="100" fill="currentColor" r="4"></circle>
+            <circle class="text-primary" cx="300" cy="200" fill="currentColor" r="4"></circle>
+            <circle class="text-primary" cx="100" cy="300" fill="currentColor" r="4"></circle>
+            <line class="text-outline" stroke="currentColor" stroke-width="0.5" x1="200" x2="300" y1="100" y2="200">
+            </line>
+            <line class="text-outline" stroke="currentColor" stroke-width="0.5" x1="300" x2="100" y1="200" y2="300">
+            </line>
+        </svg>
+    </div>
+    <!-- 1. Supabase CDN (Debe ir primero) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- 2. Inicialización de Supabase ÚNICA Y lógica del botón Crear Unidad -->
+    <script>
+    const supabaseClient = window.supabase.createClient(
+        "https://iacjmzaihvzjotehsdjd.supabase.co",
+        "sb_publishable_CJnhBJENcZ5EyjTasNQriA_Ka4FHCtB"
+    );
+
+    // La lógica de creación de unidades es ahora controlada completamente por admin.js
+
+    // Función auxiliar lista para cuando decidas listar dinámicamente en el Index
+    async function loadUnidadesToIndex() {
+        const { data, error } = await supabaseClient.from('unidades').select('*');
+        if (error) return console.error('Error al cargar unidades:', error);
+        console.log('Datos listos para index.html:', data);
+        // Aquí se podrá inyectar el HTML posteriormente
+    }
+    </script>
+    
+    <!-- 3. Funciones restantes del panel -->
+    <script src="admin.js"></script>
+</body>
+
+</html>
