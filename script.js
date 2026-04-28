@@ -61,214 +61,178 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // 4. Render correcto en el DOM
         unidades.forEach((unidad) => {
-            // -- CONTENEDOR PRINCIPAL DE LA UNIDAD --
-            const unitSection = document.createElement("div");
-            unitSection.style.marginBottom = "30px";
-            unitSection.style.fontFamily = "system-ui, -apple-system, sans-serif";
+            // -- CONTENEDOR PRINCIPAL DE LA UNIDAD (TARJETA) --
+            const unitCard = document.createElement("div");
+            unitCard.className = "unit-card";
 
-            // -- TARJETA DE LA UNIDAD --
-            const card = document.createElement("div");
-            card.style.border = "1px solid #e0e0e0";
-            card.style.borderRadius = "10px";
-            card.style.padding = "20px";
-            card.style.backgroundColor = "#ffffff";
-            card.style.boxShadow = "0 4px 6px rgba(0,0,0,0.05)";
-            card.style.display = "flex";
-            card.style.alignItems = "center";
+            // -- HEADER DE LA UNIDAD --
+            const unitHeader = document.createElement("div");
+            unitHeader.className = "unit-header";
 
-            // Icono de carpeta
+            const iconTitleWrapper = document.createElement("div");
+            iconTitleWrapper.className = "unit-icon-title";
+
             const iconDiv = document.createElement("div");
             iconDiv.textContent = "📁";
             iconDiv.style.fontSize = "26px";
-            iconDiv.style.marginRight = "15px";
 
-            // Título de la unidad
-            const titleBlock = document.createElement("div");
             const titleElement = document.createElement("h3");
-            titleElement.style.margin = "0";
-            titleElement.style.fontSize = "1.2rem";
-            titleElement.style.color = "#333333";
+            titleElement.className = "unit-title";
             titleElement.textContent = unidad.nombre; // Ej: "Unidad 1"
 
-            titleBlock.appendChild(titleElement);
-            card.appendChild(iconDiv);
-            card.appendChild(titleBlock);
+            iconTitleWrapper.appendChild(iconDiv);
+            iconTitleWrapper.appendChild(titleElement);
 
-            // Agregar la tarjeta de unidad a la sección
-            unitSection.appendChild(card);
+            const chevronDiv = document.createElement("div");
+            chevronDiv.className = "chevron-icon";
+            chevronDiv.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`;
 
-            // -- CONTENEDOR DE LAS SEMANAS DE ESTA UNIDAD --
-            const weeksContainer = document.createElement("div");
-            weeksContainer.style.paddingLeft = "25px";
-            weeksContainer.style.marginTop = "15px";
-            weeksContainer.style.display = "flex";
-            weeksContainer.style.flexDirection = "column";
-            weeksContainer.style.gap = "15px";
+            unitHeader.appendChild(iconTitleWrapper);
+            unitHeader.appendChild(chevronDiv);
+            unitCard.appendChild(unitHeader);
+
+            // -- CONTENEDOR DESPLEGABLE (ACORDEÓN) --
+            const contentWrapper = document.createElement("div");
+            contentWrapper.className = "unit-content-wrapper";
+
+            const contentInner = document.createElement("div");
+            contentInner.className = "unit-content";
 
             // Obtener semanas correspondientes a la unidad actual
             const semanasDeEstaUnidad = semanasPorUnidad[unidad.id] || [];
 
             if (semanasDeEstaUnidad.length === 0) {
-                // Mensaje si no hay semanas
                 const noWeeksMsg = document.createElement("p");
-                noWeeksMsg.style.color = "#888";
-                noWeeksMsg.style.fontSize = "0.9rem";
+                noWeeksMsg.style.color = "#64748b";
                 noWeeksMsg.style.fontStyle = "italic";
                 noWeeksMsg.textContent = "No hay semanas publicadas para esta unidad.";
-                weeksContainer.appendChild(noWeeksMsg);
+                contentInner.appendChild(noWeeksMsg);
             } else {
-                // Renderizar cada semana
                 semanasDeEstaUnidad.forEach(semana => {
                     const weekCard = document.createElement("div");
-                    weekCard.style.borderLeft = "3px solid #0062a1"; // Línea de acento
-                    weekCard.style.padding = "15px 20px";
-                    weekCard.style.backgroundColor = "#f8fafc";
-                    weekCard.style.borderRadius = "0 8px 8px 0";
-                    weekCard.style.boxShadow = "0 1px 3px rgba(0,0,0,0.02)";
+                    weekCard.className = "week-card";
 
-                    // Título de la Semana
                     const wTitle = document.createElement("h4");
                     wTitle.textContent = semana.titulo;
-                    wTitle.style.margin = "0 0 5px 0";
-                    wTitle.style.fontSize = "1rem";
-                    wTitle.style.color = "#1e293b";
+                    wTitle.style.marginBottom = "5px";
+                    wTitle.style.color = "#0f172a";
 
-                    // Descripción de la Semana
                     const wDesc = document.createElement("p");
                     wDesc.textContent = semana.descripcion || "Sin descripción proporcionada.";
-                    wDesc.style.margin = "0 0 10px 0";
-                    wDesc.style.fontSize = "0.85rem";
                     wDesc.style.color = "#475569";
+                    wDesc.style.fontSize = "0.95rem";
 
                     weekCard.appendChild(wTitle);
                     weekCard.appendChild(wDesc);
 
-                    // Trabajos de la semana
                     const trabajosDeEstaSemana = (trabajos || []).filter(t => t.semana_id == semana.id);
 
                     if (trabajosDeEstaSemana.length > 0) {
                         const worksContainer = document.createElement("div");
-                        worksContainer.style.marginTop = "15px";
-                        worksContainer.style.display = "flex";
-                        worksContainer.style.flexDirection = "column";
-                        worksContainer.style.gap = "8px";
+                        worksContainer.style.marginTop = "1rem";
 
-                        trabajosDeEstaSemana.forEach((trabajo, index) => {
-                            const workItem = document.createElement("div");
-                            workItem.style.backgroundColor = "#ffffff";
-                            workItem.style.border = "1px solid #e2e8f0";
-                            workItem.style.borderRadius = "8px";
-                            workItem.style.padding = "10px 15px";
-                            workItem.style.display = "flex";
-                            workItem.style.alignItems = "center";
-                            workItem.style.justifyContent = "space-between";
-                            workItem.style.transition = "all 0.3s ease";
-                            workItem.style.cursor = "default";
+                        trabajosDeEstaSemana.forEach((trabajo) => {
+                            const fileCard = document.createElement("div");
+                            fileCard.className = "file-card";
 
-                            // Hover effect
-                            workItem.addEventListener('mouseenter', () => {
-                                workItem.style.transform = "translateY(-2px)";
-                                workItem.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)";
-                                workItem.style.borderColor = "#bae6fd";
-                            });
-                            workItem.addEventListener('mouseleave', () => {
-                                workItem.style.transform = "none";
-                                workItem.style.boxShadow = "none";
-                                workItem.style.borderColor = "#e2e8f0";
-                            });
+                            const fileInfo = document.createElement("div");
+                            fileInfo.className = "file-info";
 
-                            const workInfo = document.createElement("div");
-                            workInfo.style.display = "flex";
-                            workInfo.style.flexDirection = "column";
-                            workInfo.style.gap = "2px";
+                            const fIcon = document.createElement("div");
+                            fIcon.className = "file-icon";
+                            fIcon.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>`;
 
-                            const titleWrapper = document.createElement("div");
-                            titleWrapper.style.display = "flex";
-                            titleWrapper.style.alignItems = "center";
-                            titleWrapper.style.gap = "8px";
+                            const textWrapper = document.createElement("div");
+                            const fTitle = document.createElement("div");
+                            fTitle.textContent = trabajo.titulo || "Documento adjunto";
+                            fTitle.style.fontWeight = "600";
+                            fTitle.style.color = "#1e293b";
+                            fTitle.style.marginBottom = "2px";
 
-                            const icon = document.createElement("span");
-                            icon.textContent = "📄";
-                            icon.style.fontSize = "1.1rem";
+                            textWrapper.appendChild(fTitle);
 
-                            const wTitle = document.createElement("span");
-                            wTitle.textContent = trabajo.titulo || `Trabajo ${index + 1}`;
-                            wTitle.style.fontWeight = "600";
-                            wTitle.style.fontSize = "0.9rem";
-                            wTitle.style.color = "#334155";
-
-                            titleWrapper.appendChild(icon);
-                            titleWrapper.appendChild(wTitle);
-                            workInfo.appendChild(titleWrapper);
-
-                            const wDesc = document.createElement("span");
-                            wDesc.textContent = trabajo.descripcion || "";
-                            wDesc.style.fontSize = "0.75rem";
-                            wDesc.style.color = "#64748b";
-                            if (wDesc.textContent) workInfo.appendChild(wDesc);
-
-                            workItem.appendChild(workInfo);
-
-                            // Link al pdf si existe
-                            if (trabajo.pdf_url) {
-                                const actionContainer = document.createElement("div");
-                                actionContainer.style.display = "flex";
-                                actionContainer.style.flexDirection = "column";
-                                actionContainer.style.alignItems = "flex-end";
-                                actionContainer.style.gap = "4px";
-
-                                const wLink = document.createElement("a");
-                                wLink.href = trabajo.pdf_url;
-                                wLink.target = "_blank";
-                                wLink.textContent = "Abrir Archivo";
-                                wLink.style.backgroundColor = "#e0f2fe";
-                                wLink.style.color = "#0369a1";
-                                wLink.style.padding = "6px 14px";
-                                wLink.style.borderRadius = "6px";
-                                wLink.style.fontSize = "0.75rem";
-                                wLink.style.fontWeight = "600";
-                                wLink.style.textDecoration = "none";
-                                wLink.style.transition = "background-color 0.2s, transform 0.1s";
-                                wLink.addEventListener('mouseenter', () => { wLink.style.backgroundColor = "#bae6fd"; wLink.style.transform = "scale(1.02)"; });
-                                wLink.addEventListener('mouseleave', () => { wLink.style.backgroundColor = "#e0f2fe"; wLink.style.transform = "none"; });
-                                wLink.addEventListener('mousedown', () => wLink.style.transform = "scale(0.95)");
-                                wLink.addEventListener('mouseup', () => wLink.style.transform = "scale(1.02)");
-
-                                actionContainer.appendChild(wLink);
-
-                                // Nombre limpio del archivo
-                                let fileName = trabajo.pdf_url.split('/').pop().split('?')[0];
-                                try { fileName = decodeURIComponent(fileName); } catch (e) { }
-                                fileName = fileName.replace(/^\d+_/, '').replace(/_/g, ' ');
-
-                                if (fileName) {
-                                    const wFileName = document.createElement("span");
-                                    wFileName.textContent = fileName;
-                                    wFileName.style.fontSize = "0.65rem";
-                                    wFileName.style.color = "#94a3b8";
-                                    wFileName.style.maxWidth = "150px";
-                                    wFileName.style.overflow = "hidden";
-                                    wFileName.style.textOverflow = "ellipsis";
-                                    wFileName.style.whiteSpace = "nowrap";
-                                    actionContainer.appendChild(wFileName);
-                                }
-
-                                workItem.appendChild(actionContainer);
+                            if (trabajo.descripcion) {
+                                const fDesc = document.createElement("div");
+                                fDesc.textContent = trabajo.descripcion;
+                                fDesc.style.fontSize = "0.85rem";
+                                fDesc.style.color = "#64748b";
+                                textWrapper.appendChild(fDesc);
                             }
 
-                            worksContainer.appendChild(workItem);
-                        });
+                            fileInfo.appendChild(fIcon);
+                            fileInfo.appendChild(textWrapper);
+                            fileCard.appendChild(fileInfo);
 
+                            if (trabajo.pdf_url) {
+                                const actionsDiv = document.createElement("div");
+                                actionsDiv.className = "file-actions";
+
+                                const btnView = document.createElement("a");
+                                btnView.className = "btn-file btn-view";
+                                btnView.href = trabajo.pdf_url;
+                                btnView.target = "_blank";
+                                btnView.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Ver`;
+
+                                const btnDownload = document.createElement("button");
+                                btnDownload.className = "btn-file btn-download";
+                                btnDownload.style.cursor = "pointer";
+                                btnDownload.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg> Descargar`;
+                                btnDownload.onclick = async (e) => {
+                                    e.preventDefault();
+                                    try {
+                                        const originalText = btnDownload.innerHTML;
+                                        btnDownload.innerHTML = "Descargando...";
+                                        
+                                        // Obtener nombre limpio del archivo
+                                        let fileName = trabajo.pdf_url.split('/').pop().split('?')[0];
+                                        try { fileName = decodeURIComponent(fileName); } catch (err) { }
+                                        fileName = fileName.replace(/^\d+_/, '').replace(/_/g, ' ') || "archivo.pdf";
+
+                                        // Usar fetch para forzar descarga sin abrir en otra pestaña
+                                        const response = await fetch(trabajo.pdf_url);
+                                        const blob = await response.blob();
+                                        const url = window.URL.createObjectURL(blob);
+                                        
+                                        const a = document.createElement('a');
+                                        a.style.display = 'none';
+                                        a.href = url;
+                                        a.download = fileName;
+                                        document.body.appendChild(a);
+                                        a.click();
+                                        
+                                        window.URL.revokeObjectURL(url);
+                                        a.remove();
+                                        btnDownload.innerHTML = originalText;
+                                    } catch (err) {
+                                        console.error("Error al descargar, abriendo link directo:", err);
+                                        // Fallback si falla CORS
+                                        window.open(trabajo.pdf_url + (trabajo.pdf_url.includes('?') ? '&' : '?') + "download=", '_self');
+                                    }
+                                };
+
+                                actionsDiv.appendChild(btnView);
+                                actionsDiv.appendChild(btnDownload);
+                                fileCard.appendChild(actionsDiv);
+                            }
+
+                            worksContainer.appendChild(fileCard);
+                        });
                         weekCard.appendChild(worksContainer);
                     }
-
-                    weeksContainer.appendChild(weekCard);
+                    contentInner.appendChild(weekCard);
                 });
             }
 
-            // Anidar todo
-            unitSection.appendChild(weeksContainer);
-            accordion.appendChild(unitSection);
+            // Integrar acordeón
+            contentWrapper.appendChild(contentInner);
+            unitCard.appendChild(contentWrapper);
+
+            // Logica de evento de click
+            unitHeader.addEventListener('click', () => {
+                unitCard.classList.toggle('active');
+            });
+
+            accordion.appendChild(unitCard);
         });
 
     } catch (err) {

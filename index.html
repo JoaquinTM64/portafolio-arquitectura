@@ -27,7 +27,7 @@
         </div>
     </header>
     <main>
-        <section id="inicio" class="hero">
+        <section id="inicio" class="hero fade-in">
             <div class="container hero-container">
                 <span class="hero-pill">PORTAFOLIO ACADÉMICO</span>
                 <h2 class="display-title">Bienvenido a mi Portafolio</h2>
@@ -36,7 +36,7 @@
                 <div class="hero-actions">
                     <button class="btn btn-primary"
                         onclick="document.getElementById('semanas').scrollIntoView({behavior: 'smooth'})">Explorar
-                        Semanas</button>
+                        Unidades</button>
                     <span class="hero-label">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -48,7 +48,7 @@
             </div>
         </section>
 
-        <section id="semanas" class="section-semanas">
+        <section id="semanas" class="section-semanas reveal">
             <div class="container">
                 <div class="section-header">
                     <div class="header-text">
@@ -65,8 +65,8 @@
             </div>
         </section>
 
-        <!-- Bloque Visión de Diseño opcional que complementa la maqueta (image reference) -->
-        <section class="section-vision">
+        <!-- Bloque Visión de Diseño -->
+        <section class="section-vision reveal">
             <div class="container vision-container">
                 <div class="vision-image">
                     <!-- Referencia al archivo image/diseño en workspace -->
@@ -121,6 +121,32 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
     <script src="script.js"></script>
+
+    <!-- Script para animaciones en scroll -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+        });
+    </script>
 </body>
 
 </html>
