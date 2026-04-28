@@ -7,14 +7,14 @@
     --bg-surface: #f8f9fa;
     --bg-surface-container-low: #f1f4f6;
     --bg-surface-container-lowest: #ffffff;
-    
+
     --primary: #3a5f94;
     --primary-dim: #2d5387;
     --primary-container: #d5e3ff;
-    
+
     --text-on-surface: #2b3437;
     --text-muted: #64748b;
-    
+
     /* Shadows & Elevation */
     --shadow-ambient: 0px 12px 32px rgba(43, 52, 55, 0.06);
     --border-ghost: rgba(171, 179, 183, 0.15);
@@ -22,15 +22,15 @@
     /* Badge Colors as requested in assignment */
     --badge-pending-bg: #f1f5f9;
     --badge-pending-text: #64748b;
-    
+
     --badge-inprogress-bg: #dbeafe;
     --badge-inprogress-text: #1e40af;
-    
+
     --badge-review-bg: #e0e7ff;
     --badge-review-text: #3730a3;
-    
+
     /* Specs from DESIGN.md */
-    --badge-completed-bg: #cfe6f2; 
+    --badge-completed-bg: #cfe6f2;
     --badge-completed-text: #40555f;
 }
 
@@ -49,7 +49,15 @@ body {
 }
 
 /* Typography Editorial Scale Override */
-h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.brand,
+.display-title,
+.card-number {
     font-family: 'Manrope', sans-serif;
 }
 
@@ -83,6 +91,18 @@ h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
     color: var(--text-on-surface);
 }
 
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.brand-logo {
+    width: 55px;
+    height: auto;
+    object-fit: contain;
+}
+
 .nav {
     display: flex;
     gap: 2rem;
@@ -96,7 +116,8 @@ h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
     transition: color 0.2s ease;
 }
 
-.nav a.active, .nav a:hover {
+.nav a.active,
+.nav a:hover {
     color: var(--primary);
 }
 
@@ -188,7 +209,8 @@ h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
 
 .btn {
     padding: 0.875rem 1.75rem;
-    border-radius: 0.375rem; /* md rounded (0.375rem) */
+    border-radius: 0.375rem;
+    /* md rounded (0.375rem) */
     font-weight: 600;
     font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
@@ -202,12 +224,12 @@ h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
 .btn-primary {
     background-color: white;
     color: var(--primary);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
 .hero-label {
@@ -326,7 +348,8 @@ h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
     transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     position: relative;
-    user-select: none; /* Mejor experiencia al dar click contínuo */
+    user-select: none;
+    /* Mejor experiencia al dar click contínuo */
 }
 
 /* "Ghost Border" para dar estructura accesible sin romper el minimalismo */
@@ -370,10 +393,25 @@ h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.badge.pending { background-color: var(--badge-pending-bg); color: var(--badge-pending-text); }
-.badge.in-progress { background-color: var(--badge-inprogress-bg); color: var(--badge-inprogress-text); }
-.badge.review { background-color: var(--badge-review-bg); color: var(--badge-review-text); }
-.badge.completed { background-color: var(--badge-completed-bg); color: var(--badge-completed-text); }
+.badge.pending {
+    background-color: var(--badge-pending-bg);
+    color: var(--badge-pending-text);
+}
+
+.badge.in-progress {
+    background-color: var(--badge-inprogress-bg);
+    color: var(--badge-inprogress-text);
+}
+
+.badge.review {
+    background-color: var(--badge-review-bg);
+    color: var(--badge-review-text);
+}
+
+.badge.completed {
+    background-color: var(--badge-completed-bg);
+    color: var(--badge-completed-text);
+}
 
 /* Card Content */
 .card h4 {
@@ -426,7 +464,8 @@ h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
 
 .vision-image {
     background-color: #cbd5e1;
-    background-image: url('bbva-arquitectura-software-innovacion.avif');  /* Referenciando la imagen local */
+    background-image: url('bbva-arquitectura-software-innovacion.avif');
+    /* Referenciando la imagen local */
     background-size: cover;
     background-position: center;
     border-radius: 16px;
@@ -451,7 +490,7 @@ h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
     background: var(--bg-surface-container-lowest);
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
     border: 1px solid var(--border-ghost);
 }
 
@@ -514,15 +553,43 @@ h1, h2, h3, h4, h5, h6, .brand, .display-title, .card-number {
 
 /* ================== RESPONSIVE DESIGN ================== */
 @media (max-width: 992px) {
-    .vision-container { grid-template-columns: 1fr; }
-    .vision-image { height: 350px; }
+    .vision-container {
+        grid-template-columns: 1fr;
+    }
+
+    .vision-image {
+        height: 350px;
+    }
 }
 
 @media (max-width: 768px) {
-    .display-title { font-size: 3rem; }
-    .hero { padding: 4rem 0; }
-    .hero-actions { flex-direction: column; }
-    .nav { gap: 1rem; }
-    .brand { font-size: 1rem; }
-    .footer-content { flex-direction: column; text-align: center; justify-content: center; }
+    .display-title {
+        font-size: 3rem;
+    }
+
+    .hero {
+        padding: 4rem 0;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .nav {
+        gap: 1rem;
+    }
+
+    .brand {
+        font-size: 1rem;
+    }
+
+    .brand-logo {
+        width: 40px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+    }
 }

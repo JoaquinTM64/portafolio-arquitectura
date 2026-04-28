@@ -149,7 +149,9 @@
             </a>
         </nav>
         <div class="px-4 mt-auto">
-            <a id="btnLogout" class="text-slate-600 px-4 py-6 flex items-center gap-3 font-inter text-sm font-medium hover:text-error cursor-pointer transition-colors" title="Cerrar sesión">
+            <a id="btnLogout"
+                class="text-slate-600 px-4 py-6 flex items-center gap-3 font-inter text-sm font-medium hover:text-error cursor-pointer transition-colors"
+                title="Cerrar sesión">
                 <span class="material-symbols-outlined" data-icon="logout">logout</span> Logout
             </a>
         </div>
@@ -263,7 +265,8 @@
                             class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-white h-20 resize-none"
                             placeholder="Descripción breve..."></textarea>
                         <div class="relative group">
-                            <input id="work-file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" type="file" />
+                            <input id="work-file-input"
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" type="file" />
                             <div
                                 class="w-full bg-surface-container-low border-2 border-dashed border-outline-variant/30 rounded-lg p-4 text-center group-hover:bg-primary-container/20 transition-all">
                                 <span class="material-symbols-outlined text-outline-variant mb-1"
@@ -428,25 +431,25 @@
     </div>
     <!-- 1. Supabase CDN (Debe ir primero) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
+
     <!-- 2. Inicialización de Supabase ÚNICA Y lógica del botón Crear Unidad -->
     <script>
-    const supabaseClient = window.supabase.createClient(
-        "https://iacjmzaihvzjotehsdjd.supabase.co",
-        "sb_publishable_CJnhBJENcZ5EyjTasNQriA_Ka4FHCtB"
-    );
+        const supabaseClient = window.supabase.createClient(
+            "https://iacjmzaihvzjotehsdjd.supabase.co",
+            "sb_publishable_CJnhBJENcZ5EyjTasNQriA_Ka4FHCtB"
+        );
 
-    // La lógica de creación de unidades es ahora controlada completamente por admin.js
+        // La lógica de creación de unidades es ahora controlada completamente por admin.js
 
-    // Función auxiliar lista para cuando decidas listar dinámicamente en el Index
-    async function loadUnidadesToIndex() {
-        const { data, error } = await supabaseClient.from('unidades').select('*');
-        if (error) return console.error('Error al cargar unidades:', error);
-        console.log('Datos listos para index.html:', data);
-        // Aquí se podrá inyectar el HTML posteriormente
-    }
+        // Función auxiliar lista para cuando decidas listar dinámicamente en el Index
+        async function loadUnidadesToIndex() {
+            const { data, error } = await supabaseClient.from('unidades').select('*');
+            if (error) return console.error('Error al cargar unidades:', error);
+            console.log('Datos listos para index.html:', data);
+            // Aquí se podrá inyectar el HTML posteriormente
+        }
     </script>
-    
+
     <!-- 3. Funciones restantes del panel -->
     <script src="admin.js"></script>
 </body>
