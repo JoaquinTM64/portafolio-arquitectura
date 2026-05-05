@@ -118,9 +118,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                     wTitle.style.color = "#0f172a";
 
                     const wDesc = document.createElement("p");
-                    wDesc.textContent = semana.descripcion || "Sin descripción proporcionada.";
+                    const descText = semana.descripcion ? semana.descripcion.trim() : "";
+                    wDesc.textContent = descText || "Sin descripción proporcionada.";
                     wDesc.style.color = "#475569";
                     wDesc.style.fontSize = "0.95rem";
+                    
+                    // Condición de ocultamiento
+                    if (!descText || descText.toLowerCase() === "sin descripción" || descText.toLowerCase() === "sin descripción proporcionada.") {
+                        wDesc.style.display = "none";
+                    }
 
                     weekCard.appendChild(wTitle);
                     weekCard.appendChild(wDesc);
@@ -151,13 +157,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                             textWrapper.appendChild(fTitle);
 
-                            if (trabajo.descripcion) {
-                                const fDesc = document.createElement("div");
-                                fDesc.textContent = trabajo.descripcion;
-                                fDesc.style.fontSize = "0.85rem";
-                                fDesc.style.color = "#64748b";
-                                textWrapper.appendChild(fDesc);
+                            // Modificamos para siempre crear el elemento (preservación estructural), pero ocultarlo si aplica
+                            const fDesc = document.createElement("div");
+                            const tDescText = trabajo.descripcion ? trabajo.descripcion.trim() : "";
+                            fDesc.textContent = tDescText || "Sin descripción";
+                            fDesc.style.fontSize = "0.85rem";
+                            fDesc.style.color = "#64748b";
+                            
+                            // Condición de ocultamiento
+                            if (!tDescText || tDescText.toLowerCase() === "sin descripción") {
+                                fDesc.style.display = "none";
                             }
+                            
+                            textWrapper.appendChild(fDesc);
 
                             fileInfo.appendChild(fIcon);
                             fileInfo.appendChild(textWrapper);

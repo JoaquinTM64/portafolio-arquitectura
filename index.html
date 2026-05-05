@@ -118,13 +118,37 @@
         </div>
     </footer>
 
+    <!-- GSAP & SplitType -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+
+    <!-- Supabase & App Logic -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
     <script src="script.js"></script>
 
-    <!-- Script para animaciones en scroll -->
+    <!-- Script para animaciones en scroll y GSAP -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // 1. GSAP: SplitType y animación de título
+            gsap.registerPlugin(ScrollTrigger);
+
+            const textoAnimado = new SplitType('.display-title', { types: 'chars' });
+            
+            gsap.from(textoAnimado.chars, {
+                opacity: 0,
+                y: 20,
+                stagger: 0.05,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".display-title",
+                    start: "top 85%",
+                }
+            });
+
+            // 2. IntersectionObserver existente para .reveal
             const reveals = document.querySelectorAll('.reveal');
             const revealOptions = {
                 threshold: 0.1,
